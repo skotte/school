@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolCompass.Models;
 using System.Web;
 using Microsoft.AspNetCore.Cors;
+using SchoolCompass.Data.Dapper;
+
 //using System.Web.Http.Cors;
 //using   Microsoft.AspNet.WebApi.Cors
 namespace SchoolCompass.Controllers.api
@@ -23,12 +25,16 @@ namespace SchoolCompass.Controllers.api
     public Student GetById(Guid id)
     {
       Response.Headers.Add("Access-Control-Allow-Origin", "*");
-      return new Student
-      {
-        Id = id,
-        FirstName = "Tom",
-        LastName = "Hanks"
-      };
+
+      var studentService = new StudentService();
+      var student = studentService.GetById(id);
+      return student;
+      //return new Student
+      //{
+      //  StudentId = id,
+      //  FirstName = "Tom",
+      //  LastName = "Hanks"
+      //};
     }
   }
 
